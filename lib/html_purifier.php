@@ -5,7 +5,7 @@
 // Clean : HTML Purifier ensures standards-compliant output
 // Open  : HTML Purifier is open-source and highly customizable
 function html_purifier($html){
-  require_once('/lib/htmlpurifier/HTMLPurifier.auto.php');
+  require_once('./lib/htmlpurifier/HTMLPurifier.auto.php');
   
   $config = HTMLPurifier_Config::createDefault();
   $config->set('Core.Encoding', 'UTF-8');
