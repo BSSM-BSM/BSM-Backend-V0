@@ -1,6 +1,7 @@
 <?php
 if ($_POST['post_no']==null||$_POST['boardType']==null) {
-    echo "<script>alert('게시글 번호가 없습니다.');history.go(-1);</script>";
+    $json = json_encode(array('status' => 17));
+    echo $json;
     exit();
 }else{
     switch ($_POST['boardType']){

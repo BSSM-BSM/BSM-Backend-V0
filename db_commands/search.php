@@ -1,6 +1,7 @@
 <?php
 if ($_POST['searchQuery']==null||$_POST['searchType']==null||$_POST['searchType']==null) {
-    echo "<script>alert('검색어가 없습니다.');history.go(-1);</script>";
+    $json = json_encode(array('status' => 15));
+    echo $json;
     exit();
 }else{
     switch ($_POST['searchType']){
