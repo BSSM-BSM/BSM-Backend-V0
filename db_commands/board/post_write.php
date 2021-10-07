@@ -27,7 +27,7 @@ if ($_POST['post_title']==null||$_POST['post_content']==null||$_POST['boardType'
             $post_check_query = "SELECT `member_code` FROM `$boardType` WHERE `post_no`= $post_no";
             $result = db($post_check_query)->fetch_array(MYSQLI_ASSOC);
             $member_code_check = $result['member_code'];
-            if($member_code_check==$member_code){
+            if($member_code_check==$member_code||$_SESSION['member_code']=1){
                 $post_modify_query = "UPDATE `$boardType` SET `post_title`='$post_title', `post_content`='$post_content' WHERE `post_no`=$post_no";
                 db($post_modify_query);
             }else{

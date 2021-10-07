@@ -17,7 +17,7 @@ if ($_POST['post_no']==null||$_POST['boardType']==null) {
         $post_check_query = "SELECT `member_code` FROM `$boardType` WHERE `post_no`= $post_no";
         $result = db($post_check_query)->fetch_array(MYSQLI_ASSOC);
         $member_code = $result['member_code'];
-        if($member_code==$_SESSION['member_code']){
+        if($member_code==$_SESSION['member_code']||$_SESSION['member_code']=1){
             $post_delete_query = "UPDATE `$boardType` SET `post_deleted` = 1 WHERE `post_no`= $post_no";
             db($post_delete_query);
             echo "<meta http-equiv='refresh' content='0; url=/board?boardType=".$boardType."'></meta>";

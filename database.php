@@ -52,6 +52,9 @@
     case 'comment_write':
       require_once $dir.'/board/comment_write.php';
       break;
+    case 'comment_delete':
+      require_once $dir.'/board/comment_delete.php';
+      break;
     case 'like':
       require_once $dir.'/board/like.php';
       break;
