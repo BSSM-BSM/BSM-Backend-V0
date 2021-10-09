@@ -10,8 +10,8 @@
   require_once "database_function.php";
   $command_type = $_POST['command_type'];
   switch($command_type){
-    case 'isLogin':
-      require_once $dir.'/isLogin.php';
+    case 'is_login':
+      require_once $dir.'/is_login.php';
       break;
     case 'version':
       require_once $dir.'/version.php';
@@ -24,6 +24,9 @@
       break;
     case 'register':
       require_once $dir.'/register.php';
+      break;
+    case 'reset_pw':
+      require_once $dir.'/reset_pw.php';
       break;
     case 'authentication':
       require_once $dir.'/authentication.php';

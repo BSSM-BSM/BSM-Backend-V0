@@ -1,6 +1,6 @@
 <?php
   function retype_check($a, $b){
-    if ($a==null||$b==null) {
+    if ($a===null||$b===null) {
       $json = json_encode(array('status' => 2));
       echo $json;
       exit();
@@ -12,7 +12,7 @@
     }
   }
   function login_check($member_id, $member_pw){
-    if ($member_id==null||$member_pw==null) {
+    if ($member_id===null||$member_pw===null) {
       $json = json_encode(array('status' => 2));
       echo $json;
       exit();
@@ -22,7 +22,15 @@
     if($result->num_rows==1){
       global $row;
       $row=$result->fetch_array(MYSQLI_ASSOC);
-      if($row['member_pw']==$member_pw){
+      if($row['member_salt']==null){
+        if($row['member_pw']==hash('sha3-256', $member_pw)){
+          $_SESSION['member_reset']=$row['member_code'];
+          $json = json_encode(array('status' => 24));
+          echo $json;
+          exit();
+        }
+      }
+      if($row['member_pw']==hash('sha3-256', $row['member_salt'].$member_pw)){
         return true;
       }
     }

@@ -16,9 +16,11 @@ if(isset($_SESSION['member_auth'])){
     $result = db($codeInfo_check_query)->fetch_array(MYSQLI_ASSOC);
     $member_level = $result['member_level'];
     $member_enrolled = $result['member_enrolled'];
+    $member_grade = $result['member_grade'];
     $member_class = $result['member_class'];
     $member_studentNo = $result['member_studentNo'];
-    $authentication_query = "UPDATE `members` SET `member_level`='$member_level', `member_enrolled`='$member_enrolled', `member_class`='$member_class', `member_studentNo`='$member_studentNo' WHERE `member_code`=$member_code;";
+    $member_name = $result['member_name'];
+    $authentication_query = "UPDATE `members` SET `member_level`='$member_level', `member_enrolled`='$member_enrolled', `member_grade`='$member_grade', `member_class`='$member_class', `member_studentNo`='$member_studentNo', `member_name`='$member_name' WHERE `member_code`=$member_code;";
     db($authentication_query);
     $code_expire_query = "UPDATE `valid_code` SET `valid`=0 WHERE `code`= '$code'";
     $result = db($code_expire_query);

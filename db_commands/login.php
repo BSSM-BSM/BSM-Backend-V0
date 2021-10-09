@@ -1,6 +1,6 @@
 <?php
 $member_id = $_POST['member_id'];
-$member_pw = hash('sha3-256', $_POST['member_pw']);
+$member_pw = $_POST['member_pw'];
 if(login_check($member_id, $member_pw)){
     $member_code=$row['member_code'];
     if($row['member_enrolled']==0){
@@ -14,8 +14,9 @@ if(login_check($member_id, $member_pw)){
     $_SESSION['member_nickname']=$row['member_nickname'];
     $_SESSION['member_level']=$row['member_level'];
     if($_SESSION['member_id']==$member_id){
-        $session_value=hash('sha3-256', microtime(true));
-        $cookie_expire_time = time() + 604800;
+        $salt = bin2hex(random_bytes(32));
+        $session_value=hash('sha3-256', $salt.microtime(true));
+        $cookie_expire_time = time() + 1209600;
         setcookie("SSID", $session_value, $cookie_expire_time, "/", 'bssm.kro.kr', true, true);
         $session_query = "INSERT INTO `session` values (0, '$session_value', '$cookie_expire_time', '$member_code');";
         db($session_query);
