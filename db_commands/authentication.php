@@ -2,12 +2,12 @@
 if(isset($_SESSION['member_auth'])){
     $member_code = $_SESSION['member_auth'];
     $code = $_POST['code'];
-    if(!(valid_check('valid_code', 'code', $code))){
+    if(!(overlap_check('valid_code', 'code', $code))){
         $json = json_encode(array('status' => 9));
         echo $json;
         exit();
     }
-    if(!(valid_check('valid_code', 'valid', 1))){
+    if(!(valid_check('valid_code', 'valid', true, 'code', $code))){
         $json = json_encode(array('status' => 10));
         echo $json;
         exit();

@@ -49,13 +49,13 @@
     }
     return false;
   }
-  function valid_check($table, $a, $b){
-    if ($table==null||$a==null||$b==null) {
+  function valid_check($table, $a, $b, $c, $d){
+    if ($table==null||$a==null||$b==null||$c==null||$d==null) {
       $json = json_encode(array('status' => 2));
       echo $json;
       exit();
     }
-    $valid_query = "SELECT * FROM `$table` WHERE `$a`='$b'";
+    $valid_query = "SELECT * FROM `$table` WHERE `$a`='$b' AND `$c`='$d'";
     $result = db($valid_query);
     if($result->num_rows){
       return true;

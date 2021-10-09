@@ -19,12 +19,12 @@ if(overlap_check('members', 'member_nickname', $member_nickname)){
     echo $json;
     exit();
 }
-if(!(valid_check('valid_code', 'code', $code))){
+if(!(overlap_check('valid_code', 'code', $code))){
     $json = json_encode(array('status' => 9));
     echo $json;
     exit();
 }
-if(!(valid_check('valid_code', 'valid', 1))){
+if(!(valid_check('valid_code', 'valid', true, 'code', $code))){
     $json = json_encode(array('status' => 10));
     echo $json;
     exit();
