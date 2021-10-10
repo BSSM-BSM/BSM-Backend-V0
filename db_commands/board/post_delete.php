@@ -20,7 +20,7 @@ if ($_POST['post_no']==null||$_POST['boardType']==null) {
         if($member_code==$_SESSION['member_code']||$_SESSION['member_code']=1){
             $post_delete_query = "UPDATE `$boardType` SET `post_deleted` = 1 WHERE `post_no`= $post_no";
             db($post_delete_query);
-            echo "<meta http-equiv='refresh' content='0; url=/board?boardType=".$boardType."'></meta>";
+            echo "<meta http-equiv='refresh' content='0; url=/board/".$boardType."'></meta>";
         }else{
             echo "<script>alert('게시글 작성자가 아닙니다.');history.go(-1);</script>";
         }

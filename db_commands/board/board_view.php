@@ -49,20 +49,20 @@ if($_POST['boardType']==null){
     $page_num="";
     if ($page_no > 1){
         $pre_page=$page_no-1;
-        $page_num=$page_num."<a href='/board?boardType=$boardType&page_no=1'>처음</a>";
-        $page_num=$page_num."<a href='/board?boardType=$boardType&page_no=$pre_page'>◀</a>";
+        $page_num=$page_num."<a href='/board/$boardType?page_no=1'>처음</a>";
+        $page_num=$page_num."<a href='/board/$boardType?page_no=$pre_page'>◀</a>";
     }
     for($i=$block_start;$i<=$block_end;$i++){
         if($page_no==$i){
         $page_num=$page_num."<p class='active'>$i</p>";
         }else{
-        $page_num=$page_num."<a href='/board?boardType=$boardType&page_no=$i'>$i</a>";
+        $page_num=$page_num."<a href='/board/$boardType?page_no=$i'>$i</a>";
         }
     }
     if($page_no<$total_page){
         $next_page=$page_no+1;
-        $page_num=$page_num."<a href='/board?boardType=$boardType&page_no=$next_page'>▶</a>";
-        $page_num=$page_num."<a href='/board?boardType=$boardType&page_no=$total_page'>마지막</a>";
+        $page_num=$page_num."<a href='/board/$boardType?page_no=$next_page'>▶</a>";
+        $page_num=$page_num."<a href='/board/$boardType?page_no=$total_page'>마지막</a>";
     }
     $json = json_encode(array('status' => 1, 'arr_board' => $arr_board, 'page_num' => $page_num), JSON_PRETTY_PRINT);
     echo $json;
