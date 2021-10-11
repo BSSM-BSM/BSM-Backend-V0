@@ -18,7 +18,7 @@ if ($_POST['post_title']==null||$_POST['post_content']==null||$_POST['boardType'
         require_once "$root_dir/lib/html_purifier.php";
         $member_code = $_SESSION['member_code'];
         if($anonymous_board){
-            $member_nickname = '익명';
+            $member_nickname = 'ㅇㅇ';
         }else{
             $member_nickname = $_SESSION['member_nickname'];
         }
