@@ -6,9 +6,7 @@ if ($_POST['post_no']==null||$_POST['boardType']==null) {
 }else{
     switch ($_POST['boardType']){
         case 'board':
-            $boardType=$_POST['boardType'];
-            break;
-        case 'blog':
+        case 'anonymous':
             $boardType=$_POST['boardType'];
             break;
     }

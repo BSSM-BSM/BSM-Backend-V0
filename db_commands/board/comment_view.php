@@ -4,6 +4,7 @@ if ($_POST['post_no']==null||$_POST['boardType']==null) {
     echo $json;
     exit();
 }else{
+    $anonymous_board = false;
     switch ($_POST['boardType']){
         case 'board':
             if(!(isset($_SESSION['member_code']))){
@@ -12,11 +13,12 @@ if ($_POST['post_no']==null||$_POST['boardType']==null) {
             exit();
             }
             $boardType=$_POST['boardType'];
-            $comment_boardType='comment';
+            $comment_boardType=$boardType.'_comment';
             break;
-        case 'blog':
+        case 'anonymous':
             $boardType=$_POST['boardType'];
-            $comment_boardType='blog_comment';
+            $comment_boardType=$boardType.'_comment';
+            $anonymous_board = true;
             break;
     }
     $post_no = $_POST['post_no'];
@@ -25,6 +27,9 @@ if ($_POST['post_no']==null||$_POST['boardType']==null) {
     $arr_comment=array();
     for($i=0;$i<$result->num_rows;$i++){
         $comment=$result->fetch_array(MYSQLI_ASSOC);
+        if($anonymous_board){
+            $comment['member_code']=0;
+        }
         array_push($arr_comment, array('comment_idx' => $comment['comment_index'],'memberCode' => $comment['member_code'], 'memberNickname' => htmlspecialchars($comment['member_nickname'],ENT_QUOTES,'UTF-8'), 'comment' => htmlspecialchars($comment['comment'],ENT_QUOTES,'UTF-8'), 'commentDate' => $comment['comment_date']));
     }
     $json = json_encode(array('status' => 1, 'arr_comment' => $arr_comment));

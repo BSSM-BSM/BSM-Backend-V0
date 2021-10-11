@@ -2,6 +2,7 @@
 if($_POST['boardType']==null){
 
 }else{
+    $anonymous_board = false;
     switch ($_POST['boardType']){
         case 'board':
             if(!(isset($_SESSION['member_code']))){
@@ -11,8 +12,9 @@ if($_POST['boardType']==null){
             }
             $boardType=$_POST['boardType'];
             break;
-        case 'blog':
+        case 'anonymous':
             $boardType=$_POST['boardType'];
+            $anonymous_board = true;
             break;
     }
     if(isset($_POST['page_no'])){
@@ -44,6 +46,9 @@ if($_POST['boardType']==null){
     $arr_board=array();
     for($i=0;$i<$result->num_rows;$i++){
         $board=$result->fetch_array(MYSQLI_ASSOC);
+        if($anonymous_board){
+            $board['member_code']=-1;
+        }
         array_push($arr_board, array('boardType' => $boardType, 'postNo' => $board['post_no'], 'postTitle' => htmlspecialchars($board['post_title'],ENT_QUOTES,'UTF-8'), 'postComments' => $board['post_comments'], 'memberCode' => $board['member_code'], 'memberNickname' => htmlspecialchars($board['member_nickname'],ENT_QUOTES,'UTF-8'), 'postDate' => $board['post_date'], 'postHit' => $board['post_hit'], 'post_like' => $board['like']));
     }
     $page_num="";

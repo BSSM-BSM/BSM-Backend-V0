@@ -6,12 +6,9 @@ if ($_POST['post_no']==null||$_POST['boardType']==null) {
 }else{
     switch ($_POST['boardType']){
         case 'board':
+        case 'anonymous':
             $boardType=$_POST['boardType'];
-            $comment_boardType='comment';
-            break;
-        case 'blog':
-            $boardType=$_POST['boardType'];
-            $comment_boardType='blog_comment';
+            $comment_boardType=$boardType.'_comment';
             break;
     }
     if(isset($_SESSION['member_code'])){

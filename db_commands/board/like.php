@@ -14,6 +14,10 @@ if ($_POST['post_no']==null) {
             $boardType=$_POST['boardType'];
             $like_boardType='board_like';
             break;
+        case 'anonymous':
+            $boardType=$_POST['boardType'];
+            $like_boardType='anonymous_like';
+            break;
         case 'music':
             $boardType=$_POST['boardType'];
             $like_boardType='music_like';

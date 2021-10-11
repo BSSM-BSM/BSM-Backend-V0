@@ -9,19 +9,25 @@ if ($_POST['post_no']==null) {
     echo $json;
     exit();
 }else{
+    $anonymous_board = false;
     switch ($_POST['boardType']){
         case 'board':
             $boardType=$_POST['boardType'];
-            $comment_boardType='comment';
+            $comment_boardType=$boardType.'_comment';
             break;
-        case 'blog':
+        case 'anonymous':
             $boardType=$_POST['boardType'];
-            $comment_boardType='blog_comment';
+            $comment_boardType=$boardType.'_comment';
+            $anonymous_board = true;
             break;
     }
     if(isset($_SESSION['member_code'])){
         $member_code = $_SESSION['member_code'];
-        $member_nickname = $_SESSION['member_nickname'];
+        if($anonymous_board){
+            $member_nickname = '익명';
+        }else{
+            $member_nickname = $_SESSION['member_nickname'];
+        }
         $post_no = $_POST['post_no'];
         $post_comment = $_POST['post_comment'];
         // $comment_depth = $_POST['comment_depth'];

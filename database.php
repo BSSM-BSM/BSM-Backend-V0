@@ -1,4 +1,5 @@
 <?php
+  $root_dir=$_SERVER['DOCUMENT_ROOT'];
   $dir='./db_commands';
   require_once "session.php";
   if(isset($_POST['returnUrl'])){

@@ -2,6 +2,7 @@
 if($_POST['boardType']==null){
 
 }else{
+    $anonymous_board = false;
     switch ($_POST['boardType']){
         case 'board':
         if(!(isset($_SESSION['member_code']))){
@@ -10,15 +11,16 @@ if($_POST['boardType']==null){
             exit();
         }
         $boardType=$_POST['boardType'];
-        $like_boardType='board_like';
+        $like_boardType=$boardType.'_like';
         break;
-        case 'blog':
+        case 'anonymous':
         $boardType=$_POST['boardType'];
-        $like_boardType='blog_like';
+        $like_boardType=$boardType.'_like';
+        $anonymous_board = true;
         break;
         case 'music':
         $boardType=$_POST['boardType'];
-        $like_boardType='music_like';
+        $like_boardType=$boardType.'_like';
         break;
     }
     if ($_POST['post_no']==null) {
@@ -35,7 +37,11 @@ if($_POST['boardType']==null){
         db($post_hit_query);
         $post_title=htmlspecialchars($post['post_title'],ENT_QUOTES,'UTF-8');
         $post_content=$post['post_content'];
-        $member_code=$post['member_code'];
+        if($anonymous_board){
+            $member_code=-1;
+        }else{
+            $member_code=$post['member_code'];
+        }
         $member_nickname=$post['member_nickname'];
         $post_comments=$post['post_comments'];
         $post_hit=$post['post_hit'];

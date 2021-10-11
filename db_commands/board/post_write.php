@@ -4,22 +4,24 @@ if ($_POST['post_title']==null||$_POST['post_content']==null||$_POST['boardType'
     echo $json;
     exit();
 }else{
+    $anonymous_board = false;
     switch ($_POST['boardType']){
         case 'board':
             $boardType=$_POST['boardType'];
             break;
-        case 'blog':
-            if($_SESSION['member_code']!=1){
-                $json = json_encode(array('status' => 2));
-                echo $json;
-                exit();
-            }
+        case 'anonymous':
             $boardType=$_POST['boardType'];
+            $anonymous_board = true;
+            break;
     }
     if(isset($_SESSION['member_code'])){
-        require_once './lib/html_purifier.php';
+        require_once "$root_dir/lib/html_purifier.php";
         $member_code = $_SESSION['member_code'];
-        $member_nickname = $_SESSION['member_nickname'];
+        if($anonymous_board){
+            $member_nickname = '익명';
+        }else{
+            $member_nickname = $_SESSION['member_nickname'];
+        }
         $post_title = $_POST['post_title'];
         $post_content = html_purifier($_POST['post_content']);
         if(isset($_POST['post_no'])){
