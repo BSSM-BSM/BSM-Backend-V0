@@ -11,8 +11,17 @@ if(getParam(1)){
 }else{
     $page = 'index';
 }
-if($page=='database'||$page=='database.php')
-    require_once './database.php';
-else
-    require_once './index.php';
+switch($page){
+    case 'database':
+    case 'database.php':
+        require_once './database.php';
+        break;
+    case 'logout':
+    case 'logout.php':
+        require_once './logout.php';
+        break;
+    default:
+        require_once './index.php';
+        break;
+}
 ?>
