@@ -24,7 +24,7 @@ if ($_POST['post_no']==null) {
     if(isset($_SESSION['member_code'])){
         $member_code = $_SESSION['member_code'];
         if($anonymous_board){
-            $member_nickname = '익명';
+            $member_nickname = 'ㅇㅇ';
         }else{
             $member_nickname = $_SESSION['member_nickname'];
         }

@@ -8,12 +8,12 @@ if ($_POST['searchQuery']==null||$_POST['searchType']==null||$_POST['searchType'
         case 'board':
             $searchType=$_POST['searchType'];
             break;
-        case 'blog':
+        case 'anonymous':
             $searchType=$_POST['searchType'];
     }
     switch($searchType){
         case 'board':
-        case 'blog':
+        case 'anonymous':
             $searchQuery = $_POST['searchQuery'];
             $query = "SELECT `post_no`, `post_title`, `member_nickname`, `post_date` FROM $searchType WHERE MATCH(post_title, post_content) AGAINST('$searchQuery' IN BOOLEAN MODE) AND `post_deleted`=0 ORDER BY `post_no` DESC";
             $result = db($query);
