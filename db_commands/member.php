@@ -1,8 +1,6 @@
 <?php
 if ($_POST['member_code']==null) {
-    $json = json_encode(array('status' => 14));
-    echo $json;
-    exit();
+    statusCode(14);
 }else{
     $member_code = $_POST['member_code'];
     $member_query = "SELECT * from members WHERE member_code=$member_code";

@@ -1,8 +1,6 @@
 <?php
 if ($_POST['post_title']==null||$_POST['post_content']==null||$_POST['boardType']==null) {
-    $json = json_encode(array('status' => 2));
-    echo $json;
-    exit();
+    statusCode(2);
 }else{
     $anonymous_board = false;
     switch ($_POST['boardType']){
@@ -33,20 +31,15 @@ if ($_POST['post_title']==null||$_POST['post_content']==null||$_POST['boardType'
                 $post_modify_query = "UPDATE `$boardType` SET `post_title`='$post_title', `post_content`='$post_content' WHERE `post_no`=$post_no";
                 db($post_modify_query);
             }else{
-                $json = json_encode(array('status' => 20));
-                echo $json;
-                exit();
+                statusCode(20);
             }
         }else{
             $post_write_query = "INSERT INTO `$boardType` (member_code, member_nickname, post_title, post_content, post_date) values ($member_code, '$member_nickname', '$post_title', '$post_content', now())";
             db($post_write_query);
         }
-        $json = json_encode(array('status' => 1));
-        echo $json;
+        statusCode(1);
     }else{
-        $json = json_encode(array('status' => 19));
-        echo $json;
-        exit();
+        statusCode(19);
     }
 }
 ?>

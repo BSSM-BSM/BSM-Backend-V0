@@ -3,14 +3,10 @@ if(isset($_SESSION['member_auth'])){
     $member_code = $_SESSION['member_auth'];
     $code = $_POST['code'];
     if(!(overlap_check('valid_code', 'code', $code))){
-        $json = json_encode(array('status' => 9));
-        echo $json;
-        exit();
+        statusCode(9);
     }
     if(!(valid_check('valid_code', 'valid', true, 'code', $code))){
-        $json = json_encode(array('status' => 10));
-        echo $json;
-        exit();
+        statusCode(10);
     }
     $codeInfo_check_query = "SELECT * FROM `valid_code` WHERE `code`= '$code'";
     $result = db($codeInfo_check_query)->fetch_array(MYSQLI_ASSOC);
@@ -25,11 +21,8 @@ if(isset($_SESSION['member_auth'])){
     $code_expire_query = "UPDATE `valid_code` SET `valid`=0 WHERE `code`= '$code'";
     $result = db($code_expire_query);
     session_destroy();
-    $json = json_encode(array('status' => 1));
-    echo $json;
+    statusCode(1);
 }else{
-    $json = json_encode(array('status' => 2));
-    echo $json;
-    exit();
+    statusCode(2);
 }
 ?>

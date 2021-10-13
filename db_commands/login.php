@@ -5,9 +5,7 @@ if(login_check($member_id, $member_pw)){
     $member_code=$row['member_code'];
     if($row['member_enrolled']==0){
         $_SESSION['member_auth']=$member_code;
-        $json = json_encode(array('status' => 8));
-        echo $json;
-        exit();
+        statusCode(8);
     }
     $_SESSION['member_code']=$member_code;
     $_SESSION['member_id']=$row['member_id'];
@@ -24,11 +22,9 @@ if(login_check($member_id, $member_pw)){
         echo $json;
     }else{
         session_destroy();
-        $json = json_encode(array('status' => 3));
-        echo $json;
+        statusCode(3);
     }
 }else{
-    $json = json_encode(array('status' => 4));
-    echo $json;
+    statusCode(4);
 }
 ?>

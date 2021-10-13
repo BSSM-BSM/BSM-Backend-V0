@@ -66,9 +66,7 @@
       require_once $dir.'/food.php';
       break;
     default:
-      $json = json_encode(array('status' => 2));
-      echo $json;
-      exit();
+      statusCode(2);
     break;
   }
 ?>

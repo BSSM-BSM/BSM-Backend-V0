@@ -1,15 +1,8 @@
 <?php
-if ($_POST['searchQuery']==null||$_POST['searchType']==null||$_POST['searchType']==null) {
-    $json = json_encode(array('status' => 15));
-    echo $json;
-    exit();
+if ($_POST['searchQuery']==null||$_POST['searchType']==null) {
+    statusCode(15);
 }else{
-    switch ($_POST['searchType']){
-        case 'board':
-            $searchType=$_POST['searchType'];
-            break;
-        case 'anonymous':
-            $searchType=$_POST['searchType'];
+    $searchType=$_POST['searchType'];
     }
     switch($searchType){
         case 'board':
@@ -29,8 +22,7 @@ if ($_POST['searchQuery']==null||$_POST['searchType']==null||$_POST['searchType'
             echo $json;
             break;
         default:
-            echo "<script>alert('잘못된 검색 대상입니다.');history.go(-1);</script>";
-            exit();
+            statusCode(16);
             break;
     }
 }

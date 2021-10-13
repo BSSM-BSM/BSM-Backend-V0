@@ -1,9 +1,7 @@
 <?php
   function retype_check($a, $b){
     if ($a===null||$b===null) {
-      $json = json_encode(array('status' => 2));
-      echo $json;
-      exit();
+      statusCode(2);
     }
     if($a==$b){
       return false;
@@ -13,9 +11,7 @@
   }
   function login_check($member_id, $member_pw){
     if ($member_id===null||$member_pw===null) {
-      $json = json_encode(array('status' => 2));
-      echo $json;
-      exit();
+      statusCode(2);
     }
     $login_query = "SELECT * FROM members WHERE member_id='$member_id'";
     $result = db($login_query);
@@ -25,9 +21,7 @@
       if($row['member_salt']==null){
         if($row['member_pw']==hash('sha3-256', $member_pw)){
           $_SESSION['member_reset']=$row['member_code'];
-          $json = json_encode(array('status' => 24));
-          echo $json;
-          exit();
+          statusCode(21);
         }
       }
       if($row['member_pw']==hash('sha3-256', $row['member_salt'].$member_pw)){
@@ -38,9 +32,7 @@
   }
   function overlap_check($table, $a, $b){
     if ($table==null||$a==null||$b==null) {
-      $json = json_encode(array('status' => 2));
-      echo $json;
-      exit();
+      statusCode(2);
     }
     $overlap_query = "SELECT * FROM `$table` WHERE $a='$b'";
     $result = db($overlap_query);
@@ -51,9 +43,7 @@
   }
   function valid_check($table, $a, $b, $c, $d){
     if ($table==null||$a==null||$b==null||$c==null||$d==null) {
-      $json = json_encode(array('status' => 2));
-      echo $json;
-      exit();
+      statusCode(2);
     }
     $valid_query = "SELECT * FROM `$table` WHERE `$a`='$b' AND `$c`='$d'";
     $result = db($valid_query);
@@ -61,5 +51,17 @@
       return true;
     }
     return false;
+  }
+  function islogin(){
+    if(isset($_SESSION['member_code'])){
+      return true;
+    }else{
+      statusCode(19);
+    }
+  }
+  function statusCode($status_code){
+    $json = json_encode(array('status' => $status_code));
+    echo $json;
+    exit();
   }
 ?>

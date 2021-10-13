@@ -1,8 +1,6 @@
 <?php
 if ($_POST['post_no']==null||$_POST['boardType']==null) {
-    $json = json_encode(array('status' => 17));
-    echo $json;
-    exit();
+    statusCode(17);
 }else{
     switch ($_POST['boardType']){
         case 'board':
@@ -22,16 +20,12 @@ if ($_POST['post_no']==null||$_POST['boardType']==null) {
             db($comment_delete_query);
             $update_comments_query = "UPDATE `$boardType` set `post_comments`=`post_comments`-1 where `post_no`=$post_no";
             db($update_comments_query);
-            $json = json_encode(array('status' => 1));
-            echo $json;
+            statusCode(1);
         }else{
-            $json = json_encode(array('status' => 20));
-            echo $json;
+            statusCode(20);
         }
     }else{
-        $json = json_encode(array('status' => 19));
-        echo $json;
-        exit();
+        statusCode(19);
     }
 }
 ?>

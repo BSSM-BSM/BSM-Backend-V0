@@ -1,8 +1,6 @@
 <?php
 if ($_POST['os']==NULL||$_POST['app']==NULL) {
-    $json = json_encode(array('status' => 2));
-    echo $json;
-    exit();
+    statusCode(2);
 }else{
     switch($_POST['app']){
         case 'web':
@@ -16,14 +14,11 @@ if ($_POST['os']==NULL||$_POST['app']==NULL) {
                 echo $json;
                 break;
             default:
-                $json = json_encode(array('status' => 2));
-                echo $json;
-                break;
+                statusCode(2);
             }
             break;
         default:
-            $json = json_encode(array('status' => 2));
-            echo $json;
+            statusCode(2);
             break;
     }
 }

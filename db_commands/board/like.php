@@ -1,29 +1,25 @@
 <?php
-if ($_POST['like']==null||$_POST['boardType']==null) {
-    $json = json_encode(array('status' => 2));
-    echo $json;
-    exit();
-}
-if ($_POST['post_no']==null) {
-    $json = json_encode(array('status' => 17));
-    echo $json;
-    exit();
-}else{
-    switch ($_POST['boardType']){
-        case 'board':
-            $boardType=$_POST['boardType'];
-            $like_boardType='board_like';
-            break;
-        case 'anonymous':
-            $boardType=$_POST['boardType'];
-            $like_boardType='anonymous_like';
-            break;
-        case 'music':
-            $boardType=$_POST['boardType'];
-            $like_boardType='music_like';
-            break;
+if(islogin()){
+    if($_POST['like']==null||$_POST['boardType']==null) {
+        statusCode(2);
     }
-    if(isset($_SESSION['member_code'])){
+    if($_POST['post_no']==null) {
+        statusCode(17);
+    }else{
+        switch ($_POST['boardType']){
+            case 'board':
+                $boardType=$_POST['boardType'];
+                $like_boardType='board_like';
+                break;
+            case 'anonymous':
+                $boardType=$_POST['boardType'];
+                $like_boardType='anonymous_like';
+                break;
+            case 'music':
+                $boardType=$_POST['boardType'];
+                $like_boardType='music_like';
+                break;
+        }
         $member_code = $_SESSION['member_code'];
         $post_no = $_POST['post_no'];
         $like = $_POST['like'];
@@ -72,9 +68,7 @@ if ($_POST['post_no']==null) {
         $json = json_encode(array('status' => 1, 'like' => $return_like, 'post_like' => $post_like));
         echo $json;
     }else{
-        $json = json_encode(array('status' => 2));
-        echo $json;
-        exit();
+        statusCode(2);
     }
 }
 ?>

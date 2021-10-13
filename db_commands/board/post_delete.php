@@ -1,16 +1,14 @@
 <?php
-if ($_POST['post_no']==null||$_POST['boardType']==null) {
-    $json = json_encode(array('status' => 17));
-    echo $json;
-    exit();
-}else{
-    switch ($_POST['boardType']){
-        case 'board':
-        case 'anonymous':
-            $boardType=$_POST['boardType'];
-            break;
-    }
-    if(isset($_SESSION['member_code'])){
+if(islogin()){
+    if ($_POST['post_no']==null||$_POST['boardType']==null) {
+        statusCode(2);
+    }else{
+        switch ($_POST['boardType']){
+            case 'board':
+            case 'anonymous':
+                $boardType=$_POST['boardType'];
+                break;
+        }
         $post_no = $_POST['post_no'];
         $post_check_query = "SELECT `member_code` FROM `$boardType` WHERE `post_no`= $post_no";
         $result = db($post_check_query)->fetch_array(MYSQLI_ASSOC);
@@ -18,14 +16,10 @@ if ($_POST['post_no']==null||$_POST['boardType']==null) {
         if($member_code==$_SESSION['member_code']||$_SESSION['member_code']=1){
             $post_delete_query = "UPDATE `$boardType` SET `post_deleted` = 1 WHERE `post_no`= $post_no";
             db($post_delete_query);
-            echo "<meta http-equiv='refresh' content='0; url=/board/".$boardType."'></meta>";
+            statusCode(1);
         }else{
-            echo "<script>alert('게시글 작성자가 아닙니다.');history.go(-1);</script>";
+            statusCode(24);
         }
-    }else{
-        echo "<script>alert('정상적인 접근이 아닙니다 로그인 해주세요.');</script>";
-        echo "<meta http-equiv='refresh' content='0; url=/login?returnUrl=$returnUrl'></meta>";
-        exit();
     }
 }
 ?>

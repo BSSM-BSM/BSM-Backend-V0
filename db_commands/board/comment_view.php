@@ -1,20 +1,15 @@
 <?php
 if ($_POST['post_no']==null||$_POST['boardType']==null) {
-    $json = json_encode(array('status' => 17));
-    echo $json;
-    exit();
+    statusCode(17);
 }else{
     $anonymous_board = false;
     switch ($_POST['boardType']){
         case 'board':
-            if(!(isset($_SESSION['member_code']))){
-            $json = json_encode(array('status' => 21));
-            echo $json;
-            exit();
+            if(islogin()){
+                $boardType=$_POST['boardType'];
+                $comment_boardType=$boardType.'_comment';
+                break;
             }
-            $boardType=$_POST['boardType'];
-            $comment_boardType=$boardType.'_comment';
-            break;
         case 'anonymous':
             $boardType=$_POST['boardType'];
             $comment_boardType=$boardType.'_comment';

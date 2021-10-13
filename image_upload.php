@@ -7,9 +7,7 @@ if(isset($_SESSION['member_code'])){
             $newfilename = round(microtime(true)).'.'.end($temp);
             $destinationFilePath = '/resource/board/upload_images/'.$newfilename;
             if (!move_uploaded_file($_FILES['file']['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$destinationFilePath)) {
-                $json = json_encode(array('status' => 22));
-                echo $json;
-                exit();
+                statusCode(22);
             }
             else{
                 $json = json_encode(array('status' => 1, 'file_path' => $destinationFilePath));
@@ -17,14 +15,10 @@ if(isset($_SESSION['member_code'])){
             }
         }
         else {
-            $json = json_encode(array('status' => 22));
-            echo $json;
-            exit();
+            statusCode(22);
         }
     }
 }else{
-    $json = json_encode(array('status' => 19));
-    echo $json;
-    exit();
+    statusCode(19);
 }
 ?>

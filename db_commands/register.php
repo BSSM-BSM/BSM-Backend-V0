@@ -5,29 +5,19 @@ $member_pw_check = $_POST['member_pw_check'];
 $member_nickname = $_POST['member_nickname'];
 $code = $_POST['code'];
 if(retype_check($member_pw, $member_pw_check)) {
-    $json = json_encode(array('status' => 5));
-    echo $json;
-    exit();
+    statusCode(5);
 }
 if(overlap_check('members', 'member_id', $member_id)){
-    $json = json_encode(array('status' => 6));
-    echo $json;
-    exit();
+    statusCode(6);
 }
 if(overlap_check('members', 'member_nickname', $member_nickname)){
-    $json = json_encode(array('status' => 7));
-    echo $json;
-    exit();
+    statusCode(7);
 }
 if(!(overlap_check('valid_code', 'code', $code))){
-    $json = json_encode(array('status' => 9));
-    echo $json;
-    exit();
+    statusCode(9);
 }
 if(!(valid_check('valid_code', 'valid', true, 'code', $code))){
-    $json = json_encode(array('status' => 10));
-    echo $json;
-    exit();
+    statusCode(10);
 }
 //비밀번호 해시및 salt처리
 $salt = bin2hex(random_bytes(32));
@@ -46,11 +36,8 @@ db($register_query);
 if(login_check($member_id, $member_pw_check)){
     $code_expire_query = "UPDATE `valid_code` SET `valid`=0 WHERE `code`= '$code'";
     $result = db($code_expire_query);
-    $json = json_encode(array('status' => 1));
-    echo $json;
+    statusCode(1);
 }else {
-    $json = json_encode(array('status' => 11));
-    echo $json;
-    exit();
+    statusCode(11);
 }
 ?>

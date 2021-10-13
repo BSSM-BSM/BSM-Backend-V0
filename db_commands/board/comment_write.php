@@ -1,27 +1,23 @@
 <?php
-if ($_POST['post_comment']==null||$_POST['boardType']==null) {
-    $json = json_encode(array('status' => 2));
-    echo $json;
-    exit();
-}
-if ($_POST['post_no']==null) {
-    $json = json_encode(array('status' => 17));
-    echo $json;
-    exit();
-}else{
-    $anonymous_board = false;
-    switch ($_POST['boardType']){
-        case 'board':
-            $boardType=$_POST['boardType'];
-            $comment_boardType=$boardType.'_comment';
-            break;
-        case 'anonymous':
-            $boardType=$_POST['boardType'];
-            $comment_boardType=$boardType.'_comment';
-            $anonymous_board = true;
-            break;
+if(islogin()){
+    if ($_POST['post_comment']==null||$_POST['boardType']==null) {
+        statusCode(2);
     }
-    if(isset($_SESSION['member_code'])){
+    if ($_POST['post_no']==null) {
+        statusCode(17);
+    }else{
+        $anonymous_board = false;
+        switch ($_POST['boardType']){
+            case 'board':
+                $boardType=$_POST['boardType'];
+                $comment_boardType=$boardType.'_comment';
+                break;
+            case 'anonymous':
+                $boardType=$_POST['boardType'];
+                $comment_boardType=$boardType.'_comment';
+                $anonymous_board = true;
+                break;
+        }
         $member_code = $_SESSION['member_code'];
         if($anonymous_board){
             $member_nickname = 'ㅇㅇ';
@@ -43,12 +39,7 @@ if ($_POST['post_no']==null) {
         db($comment_write_query);
         $update_comments_query = "UPDATE `$boardType` set `post_comments`=`post_comments`+1 where `post_no`=$post_no";
         db($update_comments_query);
-        $json = json_encode(array('status' => 1));
-        echo $json;
-    }else{
-        $json = json_encode(array('status' => 19));
-        echo $json;
-        exit();
+        statusCode(1);
     }
 }
 ?>

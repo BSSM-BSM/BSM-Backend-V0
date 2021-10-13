@@ -1,32 +1,27 @@
 <?php
 if($_POST['boardType']==null){
-
+    statusCode(2);
 }else{
     $anonymous_board = false;
     switch ($_POST['boardType']){
         case 'board':
-        if(!(isset($_SESSION['member_code']))){
-            $json = json_encode(array('status' => 21));
-            echo $json;
-            exit();
-        }
-        $boardType=$_POST['boardType'];
-        $like_boardType=$boardType.'_like';
-        break;
+            if(islogin()){
+                $boardType=$_POST['boardType'];
+                $like_boardType=$boardType.'_like';
+                break;
+            }
         case 'anonymous':
-        $boardType=$_POST['boardType'];
-        $like_boardType=$boardType.'_like';
-        $anonymous_board = true;
-        break;
+            $boardType=$_POST['boardType'];
+            $like_boardType=$boardType.'_like';
+            $anonymous_board = true;
+            break;
         case 'music':
-        $boardType=$_POST['boardType'];
-        $like_boardType=$boardType.'_like';
-        break;
+            $boardType=$_POST['boardType'];
+            $like_boardType=$boardType.'_like';
+            break;
     }
     if ($_POST['post_no']==null) {
-        $json = json_encode(array('status' => 17));
-        echo $json;
-        exit();
+        statusCode(17);
     }else{
         $post_no = $_POST['post_no'];
         $post_query = "SELECT * from $boardType where post_no=$post_no";
@@ -47,7 +42,6 @@ if($_POST['boardType']==null){
         $post_hit=$post['post_hit'];
         $post_date=$post['post_date'];
         $post_like=$post['like'];
-
         $like_check_query = "SELECT `like` FROM `$like_boardType` WHERE `post_no`= $post_no AND `member_code`=".$_SESSION['member_code'];
         $result = db($like_check_query);
         if($result->num_rows){
@@ -56,11 +50,10 @@ if($_POST['boardType']==null){
         }else{
             $like=0;
         }
-        $json = json_encode(array('status' => 1, 'post_title' => $post_title, 'post_content' => $post_content, 'member_code' => $member_code, 'member_nickname' => $member_nickname, 'post_comments' => $post_comments, 'post_hit' => $post_hit, 'post_like' => $post_like, 'like' => $like, 'post_date' => $post_date));
-        echo $json;
+            $json = json_encode(array('status' => 1, 'post_title' => $post_title, 'post_content' => $post_content, 'member_code' => $member_code, 'member_nickname' => $member_nickname, 'post_comments' => $post_comments, 'post_hit' => $post_hit, 'post_like' => $post_like, 'like' => $like, 'post_date' => $post_date));
+            echo $json;
         }else{
-        $json = json_encode(array('status' => 18));
-        echo $json;
+            statusCode(18);
         }
     }
 }
