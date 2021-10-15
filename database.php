@@ -62,6 +62,33 @@
     case 'like':
       require_once $dir.'/board/like.php';
       break;
+    case 'node-like':
+      if($_POST['like']==null||$_POST['boardType']==null) {
+        statusCode(2);
+      }
+      if($_POST['post_no']==null) {
+          statusCode(17);
+      }
+      switch ($_POST['boardType']){
+          case 'board':
+              $boardType=$_POST['boardType'];
+              $like_boardType='board_like';
+              break;
+          case 'anonymous':
+              $boardType=$_POST['boardType'];
+              $like_boardType='anonymous_like';
+              break;
+          case 'music':
+              $boardType=$_POST['boardType'];
+              $like_boardType='music_like';
+              break;
+      }
+      $member_code = $_SESSION['member_code'];
+      $post_no = $_POST['post_no'];
+      $like = $_POST['like'];
+      exec("node $_SERVER[DOCUMENT_ROOT]/db_commands/board/like.js $dbUser $dbPw $db $boardType $like_boardType $post_no $like $member_code", $output);
+      echo implode("\n", $output);
+      break;
     case 'food':
       require_once $dir.'/food.php';
       break;
