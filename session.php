@@ -3,7 +3,7 @@ session_start();
 if(!(isset($_SESSION['member_code'])) && isset($_COOKIE['SSID'])){
     if($_COOKIE['SSID']!=NULL){
         require_once "database_connect.php";
-        $SSID=$_COOKIE['SSID'];
+        $SSID=Mysqli_real_escape_string(conn(), $_COOKIE['SSID']);
         $time=time();
         $session_search_query = "SELECT `member_code` FROM `session` WHERE `session`='$SSID' AND `cookie_expire_time`>=$time;";
         $result = db($session_search_query);

@@ -1,9 +1,9 @@
 <?php
-$member_id = $_POST['member_id'];
-$member_pw = $_POST['member_pw'];
-$member_pw_check = $_POST['member_pw_check'];
-$member_nickname = $_POST['member_nickname'];
-$code = $_POST['code'];
+$member_id = Mysqli_real_escape_string(conn(), $_POST['member_id']);
+$member_pw = Mysqli_real_escape_string(conn(), $_POST['member_pw']);
+$member_pw_check = Mysqli_real_escape_string(conn(), $_POST['member_pw_check']);
+$member_nickname = Mysqli_real_escape_string(conn(), $_POST['member_nickname']);
+$code = Mysqli_real_escape_string(conn(), $_POST['code']);
 if(retype_check($member_pw, $member_pw_check)) {
     statusCode(5);
 }
@@ -22,7 +22,6 @@ if(!(valid_check('valid_code', 'valid', true, 'code', $code))){
 //비밀번호 해시및 salt처리
 $salt = bin2hex(random_bytes(32));
 $member_pw = hash('sha3-256', $salt.$member_pw);
-
 $codeInfo_check_query = "SELECT * FROM `valid_code` WHERE `code`= '$code'";
 $result = db($codeInfo_check_query)->fetch_array(MYSQLI_ASSOC);
 $member_level = $result['member_level'];

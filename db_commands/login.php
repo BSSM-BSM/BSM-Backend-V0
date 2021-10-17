@@ -1,6 +1,6 @@
 <?php
-$member_id = $_POST['member_id'];
-$member_pw = $_POST['member_pw'];
+$member_id = Mysqli_real_escape_string(conn(), $_POST['member_id']);
+$member_pw = Mysqli_real_escape_string(conn(), $_POST['member_pw']);
 if(login_check($member_id, $member_pw)){
     $member_code=$row['member_code'];
     if($row['member_enrolled']==0){

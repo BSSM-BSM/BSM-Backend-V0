@@ -6,24 +6,24 @@ if($_POST['boardType']==null){
     switch ($_POST['boardType']){
         case 'board':
             if(islogin()){
-                $boardType=$_POST['boardType'];
+                $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
                 $like_boardType=$boardType.'_like';
                 break;
             }
         case 'anonymous':
-            $boardType=$_POST['boardType'];
+            $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
             $like_boardType=$boardType.'_like';
             $anonymous_board = true;
             break;
         case 'music':
-            $boardType=$_POST['boardType'];
+            $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
             $like_boardType=$boardType.'_like';
             break;
     }
     if ($_POST['post_no']==null) {
         statusCode(17);
     }else{
-        $post_no = $_POST['post_no'];
+        $post_no = Mysqli_real_escape_string(conn(), $_POST['post_no']);
         $post_query = "SELECT * from $boardType where post_no=$post_no";
         $result = db($post_query);
         $post=$result->fetch_array(MYSQLI_ASSOC);

@@ -13,6 +13,8 @@
     if ($member_id===null||$member_pw===null) {
       statusCode(2);
     }
+    $member_id=Mysqli_real_escape_string(conn(), $member_id);
+    $member_pw=Mysqli_real_escape_string(conn(), $member_pw);
     $login_query = "SELECT * FROM members WHERE member_id='$member_id'";
     $result = db($login_query);
     if($result->num_rows==1){
@@ -34,6 +36,9 @@
     if ($table==null||$a==null||$b==null) {
       statusCode(2);
     }
+    $table=Mysqli_real_escape_string(conn(), $table);
+    $a=Mysqli_real_escape_string(conn(), $a);
+    $b=Mysqli_real_escape_string(conn(), $b);
     $overlap_query = "SELECT * FROM `$table` WHERE $a='$b'";
     $result = db($overlap_query);
     if($result->num_rows){
@@ -45,6 +50,11 @@
     if ($table==null||$a==null||$b==null||$c==null||$d==null) {
       statusCode(2);
     }
+    $table=Mysqli_real_escape_string(conn(), $table);
+    $a=Mysqli_real_escape_string(conn(), $a);
+    $b=Mysqli_real_escape_string(conn(), $b);
+    $c=Mysqli_real_escape_string(conn(), $c);
+    $d=Mysqli_real_escape_string(conn(), $d);
     $valid_query = "SELECT * FROM `$table` WHERE `$a`='$b' AND `$c`='$d'";
     $result = db($valid_query);
     if($result->num_rows){

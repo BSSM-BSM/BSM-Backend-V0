@@ -2,7 +2,7 @@
 if ($_POST['member_code']==null) {
     statusCode(14);
 }else{
-    $member_code = $_POST['member_code'];
+    $member_code = Mysqli_real_escape_string(conn(), $_POST['member_code']);
     $member_query = "SELECT * from members WHERE member_code=$member_code";
     $result = db($member_query);
     $member_info=$result->fetch_array(MYSQLI_ASSOC);

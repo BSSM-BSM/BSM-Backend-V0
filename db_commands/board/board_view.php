@@ -6,17 +6,17 @@ if($_POST['boardType']==null){
     switch ($_POST['boardType']){
         case 'board':
             if(islogin()){
-                $boardType=$_POST['boardType'];
+                $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
                 break;
             }
         case 'anonymous':
-            $boardType=$_POST['boardType'];
+            $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
             $anonymous_board = true;
             break;
     }
     if(isset($_POST['page_no'])){
         if($_POST['page_no']>0){
-            $page_no = $_POST['page_no'];
+            $page_no = Mysqli_real_escape_string(conn(), $_POST['page_no']);
         }else{
             $page_no = 1;
         }

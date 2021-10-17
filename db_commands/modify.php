@@ -1,15 +1,15 @@
 <?php
 $member_id = $_SESSION['member_id'];
-$member_pw = $_POST['member_pw'];
+$member_pw = Mysqli_real_escape_string(conn(), $_POST['member_pw']);
 if(login_check($member_id, $member_pw)){
-    $modify_type = $_POST['modify_type'];
+    $modify_type = Mysqli_real_escape_string(conn(), $_POST['modify_type']);
     if ($_POST['modify_type']==null){
         statusCode(2);
     }else{
         switch($modify_type){
             case 'pw':
-                $modify_member_pw = $_POST['modify_member_pw'];
-                $modify_member_pw_check = $_POST['modify_member_pw_check'];
+                $modify_member_pw = Mysqli_real_escape_string(conn(), $_POST['modify_member_pw']);
+                $modify_member_pw_check = Mysqli_real_escape_string(conn(), $_POST['modify_member_pw_check']);
                 if(retype_check($modify_member_pw, $modify_member_pw_check)){
                     statusCode(12);
                 }

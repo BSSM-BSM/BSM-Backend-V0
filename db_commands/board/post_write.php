@@ -5,10 +5,10 @@ if ($_POST['post_title']==null||$_POST['post_content']==null||$_POST['boardType'
     $anonymous_board = false;
     switch ($_POST['boardType']){
         case 'board':
-            $boardType=$_POST['boardType'];
+            $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
             break;
         case 'anonymous':
-            $boardType=$_POST['boardType'];
+            $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
             $anonymous_board = true;
             break;
     }
@@ -20,10 +20,10 @@ if ($_POST['post_title']==null||$_POST['post_content']==null||$_POST['boardType'
         }else{
             $member_nickname = $_SESSION['member_nickname'];
         }
-        $post_title = $_POST['post_title'];
-        $post_content = html_purifier($_POST['post_content']);
+        $post_title = Mysqli_real_escape_string(conn(), $_POST['post_title']);
+        $post_content = Mysqli_real_escape_string(conn(), html_purifier($_POST['post_content']));
         if(isset($_POST['post_no'])){
-            $post_no=$_POST['post_no'];
+            $post_no=Mysqli_real_escape_string(conn(), $_POST['post_no']);
             $post_check_query = "SELECT `member_code` FROM `$boardType` WHERE `post_no`= $post_no";
             $result = db($post_check_query)->fetch_array(MYSQLI_ASSOC);
             $member_code_check = $result['member_code'];

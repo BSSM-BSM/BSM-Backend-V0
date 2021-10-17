@@ -1,8 +1,8 @@
 <?php
 if(isset($_SESSION['member_reset'])){
     $member_code = $_SESSION['member_reset'];
-    $reset_member_pw = $_POST['reset_member_pw'];
-    $reset_member_pw_check = $_POST['reset_member_pw_check'];
+    $reset_member_pw = Mysqli_real_escape_string(conn(), $_POST['reset_member_pw']);
+    $reset_member_pw_check = Mysqli_real_escape_string(conn(), $_POST['reset_member_pw_check']);
     if (retype_check($reset_member_pw, $reset_member_pw_check)) {
         statusCode(12);
     }

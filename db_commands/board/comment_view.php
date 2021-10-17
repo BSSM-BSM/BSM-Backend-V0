@@ -6,17 +6,17 @@ if ($_POST['post_no']==null||$_POST['boardType']==null) {
     switch ($_POST['boardType']){
         case 'board':
             if(islogin()){
-                $boardType=$_POST['boardType'];
+                $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
                 $comment_boardType=$boardType.'_comment';
                 break;
             }
         case 'anonymous':
-            $boardType=$_POST['boardType'];
+            $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
             $comment_boardType=$boardType.'_comment';
             $anonymous_board = true;
             break;
     }
-    $post_no = $_POST['post_no'];
+    $post_no = Mysqli_real_escape_string(conn(), $_POST['post_no']);
     $comment_query = "SELECT * from $comment_boardType where post_no=$post_no and `comment_deleted`=0 order by `order`";
     $result = db($comment_query);
     $arr_comment=array();

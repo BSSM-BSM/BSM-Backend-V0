@@ -6,10 +6,10 @@ if(islogin()){
         switch ($_POST['boardType']){
             case 'board':
             case 'anonymous':
-                $boardType=$_POST['boardType'];
+                $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
                 break;
         }
-        $post_no = $_POST['post_no'];
+        $post_no = Mysqli_real_escape_string(conn(), $_POST['post_no']);
         $post_check_query = "SELECT `member_code` FROM `$boardType` WHERE `post_no`= $post_no";
         $result = db($post_check_query)->fetch_array(MYSQLI_ASSOC);
         $member_code = $result['member_code'];

@@ -9,11 +9,11 @@ if(islogin()){
         $anonymous_board = false;
         switch ($_POST['boardType']){
             case 'board':
-                $boardType=$_POST['boardType'];
+                $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
                 $comment_boardType=$boardType.'_comment';
                 break;
             case 'anonymous':
-                $boardType=$_POST['boardType'];
+                $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
                 $comment_boardType=$boardType.'_comment';
                 $anonymous_board = true;
                 break;
@@ -24,8 +24,8 @@ if(islogin()){
         }else{
             $member_nickname = $_SESSION['member_nickname'];
         }
-        $post_no = $_POST['post_no'];
-        $post_comment = $_POST['post_comment'];
+        $post_no = Mysqli_real_escape_string(conn(), $_POST['post_no']);
+        $post_comment = Mysqli_real_escape_string(conn(), $_POST['post_comment']);
         // $comment_depth = $_POST['comment_depth'];
         // $comment_parent = $_POST['comment_parent'];
         $comment_order_query = "SELECT `order` from `$comment_boardType` where `depth`=0 and `post_no`=$post_no order by `comment_index` desc limit 1";

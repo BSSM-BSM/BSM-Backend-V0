@@ -8,21 +8,21 @@ if(islogin()){
     }
     switch ($_POST['boardType']){
         case 'board':
-            $boardType=$_POST['boardType'];
+            $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
             $like_boardType='board_like';
             break;
         case 'anonymous':
-            $boardType=$_POST['boardType'];
+            $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
             $like_boardType='anonymous_like';
             break;
         case 'music':
-            $boardType=$_POST['boardType'];
+            $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
             $like_boardType='music_like';
             break;
     }
     $member_code = $_SESSION['member_code'];
-    $post_no = $_POST['post_no'];
-    $like = $_POST['like'];
+    $post_no = Mysqli_real_escape_string(conn(), $_POST['post_no']);
+    $like = Mysqli_real_escape_string(conn(), $_POST['like']);
     if($like>0){
         $like=1;
     }else if($like<0){

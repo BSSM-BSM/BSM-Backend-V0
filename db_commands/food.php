@@ -2,7 +2,7 @@
 if ($_POST['food_date']==NULL) {
     exit();
 }else{
-    $food_date = $_POST['food_date'];
+    $food_date = Mysqli_real_escape_string(conn(), $_POST['food_date']);
     $food_query = "SELECT * from `food` where food_date='$food_date'";
     $result = db($food_query);
     $food=$result->fetch_array(MYSQLI_ASSOC);

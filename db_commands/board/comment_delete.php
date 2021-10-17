@@ -5,13 +5,13 @@ if ($_POST['post_no']==null||$_POST['boardType']==null) {
     switch ($_POST['boardType']){
         case 'board':
         case 'anonymous':
-            $boardType=$_POST['boardType'];
+            $boardType=Mysqli_real_escape_string(conn(), $_POST['boardType']);
             $comment_boardType=$boardType.'_comment';
             break;
     }
     if(isset($_SESSION['member_code'])){
-        $post_no = $_POST['post_no'];
-        $comment_index = $_POST['comment_index'];
+        $post_no = Mysqli_real_escape_string(conn(), $_POST['post_no']);
+        $comment_index = Mysqli_real_escape_string(conn(), $_POST['comment_index']);
         $comment_check_query = "SELECT `member_code` FROM `$comment_boardType` WHERE `comment_index`= $comment_index AND `post_no`=$post_no";
         $result = db($comment_check_query)->fetch_array(MYSQLI_ASSOC);
         $member_code = $result['member_code'];

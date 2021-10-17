@@ -7,6 +7,10 @@
     require "/pages/dbconnect_error.html";
     exit();
   }else{
+    function conn(){
+      global $conn;
+      return $conn;
+    }
     function db($sql){
       global $conn;
       return $conn->query($sql);

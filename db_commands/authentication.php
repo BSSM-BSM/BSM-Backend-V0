@@ -1,7 +1,7 @@
 <?php
 if(isset($_SESSION['member_auth'])){
     $member_code = $_SESSION['member_auth'];
-    $code = $_POST['code'];
+    $code = Mysqli_real_escape_string(conn(), $_POST['code']);
     if(!(overlap_check('valid_code', 'code', $code))){
         statusCode(9);
     }
