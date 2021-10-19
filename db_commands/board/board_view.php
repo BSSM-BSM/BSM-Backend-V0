@@ -40,13 +40,19 @@ if($_POST['boardType']==null){
     $board_query = "SELECT `post_no`, `post_deleted`, `post_title`, `post_comments`, `member_code`, `member_nickname`, `post_date`, `post_hit`, `like` from $boardType where `post_deleted`=0 order by post_no desc limit $page_start, $list";
     $result = db($board_query);
 
+    $members_level=memberLevel();
     $arr_board=array();
     for($i=0;$i<$result->num_rows;$i++){
         $board=$result->fetch_array(MYSQLI_ASSOC);
+        if($members_level[$board['member_code']]>0){
+            $member_level = $members_level[$board['member_code']];
+        }else{
+            $member_level = '0';
+        }
         if($anonymous_board){
             $board['member_code']=-1;
         }
-        array_push($arr_board, array('boardType' => $boardType, 'postNo' => $board['post_no'], 'postTitle' => htmlspecialchars($board['post_title'],ENT_QUOTES,'UTF-8'), 'postComments' => $board['post_comments'], 'memberCode' => $board['member_code'], 'memberNickname' => htmlspecialchars($board['member_nickname'],ENT_QUOTES,'UTF-8'), 'postDate' => $board['post_date'], 'postHit' => $board['post_hit'], 'post_like' => $board['like']));
+        array_push($arr_board, array('boardType' => $boardType, 'postNo' => $board['post_no'], 'postTitle' => htmlspecialchars($board['post_title'],ENT_QUOTES,'UTF-8'), 'postComments' => $board['post_comments'], 'memberCode' => $board['member_code'], 'memberNickname' => htmlspecialchars($board['member_nickname'],ENT_QUOTES,'UTF-8'), 'memberLevel' => $member_level, 'postDate' => $board['post_date'], 'postHit' => $board['post_hit'], 'post_like' => $board['like']));
     }
     $page_num="";
     if ($page_no > 1){
