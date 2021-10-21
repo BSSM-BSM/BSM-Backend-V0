@@ -9,6 +9,16 @@
   }
   require_once "database_connect.php";
   require_once "database_function.php";
+  function memberLevel(){
+    $members_level=array();
+    $members_level_query="SELECT `member_code`, `member_level` FROM `members` WHERE `member_level`>0";
+    $result = db($members_level_query);
+    for($i=0;$i<$result->num_rows;$i++){
+        $member=$result->fetch_array(MYSQLI_ASSOC);
+        $members_level[$member['member_code']]=$member['member_level'];
+    }
+    return $members_level;
+  }
   $command_type = $_POST['command_type'];
   switch($command_type){
     case 'is_login':
@@ -31,6 +41,9 @@
       break;
     case 'authentication':
       require_once $dir.'/authentication.php';
+      break;
+    case 'valid_code':
+      require_once $dir.'/send_valid_code.php';
       break;
     case 'member':
       require_once $dir.'/member.php';
