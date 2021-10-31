@@ -78,6 +78,9 @@
     case 'food':
       require_once $dir.'/food.php';
       break;
+    case 'meister':
+      require_once $dir.'/meister.php';
+      break;
     default:
       statusCode(2);
     break;
