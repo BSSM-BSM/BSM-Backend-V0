@@ -51,14 +51,13 @@ if($_POST['boardType']==null){
         }
         if($anonymous_board){
             $board['member_code']=-1;
+            $member_level = '0';
         }
         array_push($arr_board, array('boardType' => $boardType, 'postNo' => $board['post_no'], 'postTitle' => htmlspecialchars($board['post_title'],ENT_QUOTES,'UTF-8'), 'postComments' => $board['post_comments'], 'memberCode' => $board['member_code'], 'memberNickname' => htmlspecialchars($board['member_nickname'],ENT_QUOTES,'UTF-8'), 'memberLevel' => $member_level, 'postDate' => $board['post_date'], 'postHit' => $board['post_hit'], 'post_like' => $board['like']));
     }
     $page_num="";
     if ($page_no > 1){
-        $pre_page=$page_no-1;
         $page_num=$page_num."<a href='/board/$boardType?page_no=1'>처음</a>";
-        $page_num=$page_num."<a href='/board/$boardType?page_no=$pre_page'>◀</a>";
     }
     for($i=$block_start;$i<=$block_end;$i++){
         if($page_no==$i){
@@ -68,8 +67,6 @@ if($_POST['boardType']==null){
         }
     }
     if($page_no<$total_page){
-        $next_page=$page_no+1;
-        $page_num=$page_num."<a href='/board/$boardType?page_no=$next_page'>▶</a>";
         $page_num=$page_num."<a href='/board/$boardType?page_no=$total_page'>마지막</a>";
     }
     $json = json_encode(array('status' => 1, 'arr_board' => $arr_board, 'page_num' => $page_num), JSON_PRETTY_PRINT);

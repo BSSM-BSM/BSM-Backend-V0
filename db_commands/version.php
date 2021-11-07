@@ -10,7 +10,7 @@ if ($_POST['os']==NULL||$_POST['app']==NULL) {
         case 'app':
             switch($_POST['os']){
             case 'android':
-                $json = json_encode(array('status' => 1, 'versionCode' => 4, 'versionName' => 'Beta 0.2.1'));
+                $json = json_encode(array('status' => 1, 'versionCode' => 6, 'versionName' => 'Beta 0.2.3'));
                 echo $json;
                 break;
             default:

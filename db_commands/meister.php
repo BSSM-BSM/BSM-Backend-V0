@@ -37,7 +37,7 @@ $strcookie = "Cookie: PHPSESSID=".$cookies["PHPSESSID"];
 $data = array(
     'caseBy' => 'listview',
     'pageNumber' => 1,
-	'onPageCnt' => '20',
+	'onPageCnt' => '100',
 );
 echo mb_convert_encoding(load("https://bssm.meistergo.co.kr/ss/ss_a40j.php", $data, false, $strcookie), "UTF-8","EUC-KR");
 load("https://bssm.meistergo.co.kr/logout.php", array(), false, $strcookie);
