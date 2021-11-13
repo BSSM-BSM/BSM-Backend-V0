@@ -32,7 +32,7 @@ if(isset($_SESSION['member_code'])){
                 statusCode(22);
             }else{
                 resize_image($_SERVER['DOCUMENT_ROOT'].$destinationFilePath, $_SERVER['DOCUMENT_ROOT'].'/resource/member/profile_images/profile_'.$_SESSION['member_code'].'.png', 128, 128);
-                $json = json_encode(array('status' => 1, 'file_path' => $destinationFilePath));
+                $json = json_encode(array('status' => 1));
                 echo $json;
             }
         }

@@ -1,5 +1,10 @@
 <?php
 require_once "session.php";
+function statusCode($status_code){
+    $json = json_encode(array('status' => $status_code));
+    echo $json;
+    exit();
+}
 if(isset($_SESSION['member_code'])){
     if ($_FILES['file']['name']) {
         if (!$_FILES['file']['error']) {

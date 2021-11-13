@@ -18,6 +18,9 @@ if(!(isset($_SESSION['member_code'])) && isset($_COOKIE['SSID'])){
                 $_SESSION['member_id']=$row['member_id'];
                 $_SESSION['member_nickname']=$row['member_nickname'];
                 $_SESSION['member_level']=$row['member_level'];
+                $_SESSION['member_grade']=$row['member_grade'];
+                $_SESSION['member_class']=$row['member_class'];
+                $_SESSION['member_studentNo']=$row['member_studentNo'];
             }
         }else{
             $session_expire_query = "UPDATE `session` SET `cookie_expire_time`=0 WHERE NOT `cookie_expire_time`=0 AND `cookie_expire_time`<$time;";

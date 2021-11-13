@@ -11,6 +11,9 @@ if(login_check($member_id, $member_pw)){
     $_SESSION['member_id']=$row['member_id'];
     $_SESSION['member_nickname']=$row['member_nickname'];
     $_SESSION['member_level']=$row['member_level'];
+    $_SESSION['member_grade']=$row['member_grade'];
+    $_SESSION['member_class']=$row['member_class'];
+    $_SESSION['member_studentNo']=$row['member_studentNo'];
     if($_SESSION['member_id']==$member_id){
         $salt = bin2hex(random_bytes(32));
         $session_value=hash('sha3-256', $salt.microtime(true));
