@@ -78,6 +78,9 @@
     case 'food':
       require_once $dir.'/food.php';
       break;
+    case 'timetable':
+      require_once $dir.'/timetable.php';
+      break;
     case 'meister':
       require_once $dir.'/meister.php';
       break;
